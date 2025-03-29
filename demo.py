@@ -34,4 +34,4 @@ def rag_response():
     
     return make_response(jsonify({
         "response": "this is a test"
-    }))
+    }), 200)
