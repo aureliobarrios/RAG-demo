@@ -15,3 +15,9 @@ load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 app = Flask(__name__)
+
+@app.route("/rag-response", methods=["POST"])
+def rag_response():
+    return make_response(jsonify({
+        "response": "this is a test"
+    }))
