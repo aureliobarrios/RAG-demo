@@ -18,6 +18,20 @@ app = Flask(__name__)
 
 @app.route("/rag-response", methods=["POST"])
 def rag_response():
+    
+    try:
+        #get the prompt from the user
+        data = request.get_json()
+        #get the user input
+        user_input = data["prompt"]
+    except Exception as e:
+        #if improper data then return
+        return make_response(jsonify({
+            "response": "data input format error",
+            "message": e
+        }), 400)
+    
+    
     return make_response(jsonify({
         "response": "this is a test"
     }))
