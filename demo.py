@@ -13,6 +13,8 @@ from flask import Flask, request, jsonify, make_response
 load_dotenv()
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+DATA_PATH = "./data/"
+CHROMA_PATH = "./chroma/"
 
 app = Flask(__name__)
 
@@ -23,7 +25,7 @@ def rag_response():
         #get the prompt from the user
         data = request.get_json()
         #get the user input
-        user_input = data["prompt"]
+        prompt = data["prompt"]
     except Exception as e:
         #if improper data then return
         return make_response(jsonify({
