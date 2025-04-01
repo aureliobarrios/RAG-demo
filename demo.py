@@ -36,6 +36,16 @@ def rag_response():
     document_loader = PyPDFDirectoryLoader(DATA_PATH)
 
     documents = document_loader.load()
+
+    #split the documents into chunks
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size = 800,
+        chunk_overlap = 80,
+        length_function = len,
+        is_separator_regex = False
+    )
+    
+    chunks = text_splitter.split_documents(documents)
     
     return make_response(jsonify({
         "response": "this is a test"
