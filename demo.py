@@ -32,7 +32,10 @@ def rag_response():
             "response": "data input format error",
             "message": e
         }), 400)
-    
+    #first we must load in the documents
+    document_loader = PyPDFDirectoryLoader(DATA_PATH)
+
+    documents = document_loader.load()
     
     return make_response(jsonify({
         "response": "this is a test"
