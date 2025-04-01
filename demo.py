@@ -46,6 +46,9 @@ def rag_response():
     )
     
     chunks = text_splitter.split_documents(documents)
+
+    #get the ollama embeddings
+    embeddings = OllamaEmbeddings(model="nomic-embed-text")
     
     return make_response(jsonify({
         "response": "this is a test"
