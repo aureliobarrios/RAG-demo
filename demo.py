@@ -53,6 +53,11 @@ def rag_response():
 
     #get the ollama embeddings
     embeddings = OllamaEmbeddings(model="nomic-embed-text")
+
+    db = Chroma(
+        persist_directory = CHROMA_PATH,
+        embedding_function = embeddings
+    )
     
     return make_response(jsonify({
         "response": "this is a test"
