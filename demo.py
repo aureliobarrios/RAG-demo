@@ -1,3 +1,4 @@
+#imports
 import os
 from groq import Groq
 from langchain.schema.document import Document
@@ -7,20 +8,23 @@ from langchain.document_loaders.pdf import PyPDFDirectoryLoader
 from langchain_community.embeddings.ollama import OllamaEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from dotenv import load_dotenv
-
 from flask import Flask, request, jsonify, make_response
 
+#load in the environment
 load_dotenv()
 
+#load in your environment variables
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 DATA_PATH = "./data/"
 CHROMA_PATH = "./chroma/"
 
+#create the flask app
 app = Flask(__name__)
 
+#create the flask app route
 @app.route("/rag-response", methods=["POST"])
 def rag_response():
-    
+    #try to get the user input
     try:
         #get the prompt from the user
         data = request.get_json()
@@ -32,9 +36,9 @@ def rag_response():
             "response": "data input format error",
             "message": e
         }), 400)
-    #first we must load in the documents
+    #first we must load in the documents using a PDF loader
     document_loader = PyPDFDirectoryLoader(DATA_PATH)
-
+    #load in the content
     documents = document_loader.load()
 
     #split the documents into chunks
@@ -44,7 +48,7 @@ def rag_response():
         length_function = len,
         is_separator_regex = False
     )
-    
+    #split the content into chunks
     chunks = text_splitter.split_documents(documents)
 
     #get the ollama embeddings
