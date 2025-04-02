@@ -58,7 +58,12 @@ def rag_response():
         persist_directory = CHROMA_PATH,
         embedding_function = embeddings
     )
+
+    chunks_with_ids = calculate_chunk_ids(chunks)
     
     return make_response(jsonify({
         "response": "this is a test"
     }), 200)
+
+def calculate_chunk_ids(chunks):
+    return "Something"
