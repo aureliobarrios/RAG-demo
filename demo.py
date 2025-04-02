@@ -54,11 +54,13 @@ def rag_response():
     #get the ollama embeddings
     embeddings = OllamaEmbeddings(model="nomic-embed-text")
 
+    #create the chroma database
     db = Chroma(
         persist_directory = CHROMA_PATH,
         embedding_function = embeddings
     )
-
+    
+    #add chunk ids to current chunks for transparency
     chunks_with_ids = calculate_chunk_ids(chunks)
     
     return make_response(jsonify({
