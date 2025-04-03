@@ -60,12 +60,14 @@ def rag_response():
         embedding_function = embeddings
     )
     
+    last_page_id = None
+    current_chunk_index = 0
+    
+    
+    
     #add chunk ids to current chunks for transparency
-    chunks_with_ids = calculate_chunk_ids(chunks)
+    chunks_with_ids = ...
     
     return make_response(jsonify({
         "response": "this is a test"
     }), 200)
-
-def calculate_chunk_ids(chunks):
-    return "Something"
