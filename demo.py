@@ -63,7 +63,9 @@ def rag_response():
     last_page_id = None
     current_chunk_index = 0
     
-    
+    for chunk in chunks:
+        source = chunk.metadata.get("source")
+        print(source)
     
     #add chunk ids to current chunks for transparency
     chunks_with_ids = ...
