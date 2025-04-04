@@ -83,6 +83,13 @@ def rag_response():
         #add the current id to the current chunks metadata
         chunk.metadata["id"] = chunk_id
     
+    existing_items = db.get(include=[])
+
+    existing_ids = set(existing_items["ids"])
+
+    print(f"Number of existing documents in DB: {len(existing_ids)}")
+
+    
     #add chunk ids to current chunks for transparency
     chunks_with_ids = ...
     
