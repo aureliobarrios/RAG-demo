@@ -60,22 +60,27 @@ def rag_response():
         embedding_function = embeddings
     )
     
+    #set the ids
     last_page_id = None
     current_chunk_index = 0
-    
+    #loop through chunks and add ids
     for chunk in chunks:
+        #get the source of the chunk
         source = chunk.metadata.get("source")
+        #get the page of the chunk
         page = chunk.metadata.get("page")
+        #create an id for that chunk
         current_page_id = f"{source}:{page}"
-
+        #ensures that we have proper indexing
         if current_page_id == last_page_id:
             current_chunk_index += 1
         else:
             current_chunk_index = 0
-
+        #create a chunk id
         chunk_id = f"{current_page_id}:{current_chunk_index}"
+        #create a last page id
         last_page_id = current_page_id
-
+        #add the current id to the current chunks metadata
         chunk.metadata["id"] = chunk_id
     
     #add chunk ids to current chunks for transparency
