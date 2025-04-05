@@ -89,8 +89,10 @@ def rag_response():
     existing_ids = set(existing_items["ids"])
 
     
-    #add chunk ids to current chunks for transparency
-    chunks_with_ids = ...
+    new_chunks = []
+    for chunk in chunks:
+        if chunk.metadata["id"] not in existing_ids:
+            new_chunks.append(chunk)
     
     return make_response(jsonify({
         "response": "this is a test",
