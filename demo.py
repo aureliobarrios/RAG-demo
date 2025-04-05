@@ -88,12 +88,11 @@ def rag_response():
     #take note of all existing ids in the db
     existing_ids = set(existing_items["ids"])
 
-    print(f"Number of existing documents in DB: {len(existing_ids)}")
-
     
     #add chunk ids to current chunks for transparency
     chunks_with_ids = ...
     
     return make_response(jsonify({
-        "response": "this is a test"
+        "response": "this is a test",
+        "db-message": f"Number of existing documents in DB: {len(existing_ids)}"
     }), 200)
