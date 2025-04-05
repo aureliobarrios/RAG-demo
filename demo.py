@@ -93,8 +93,16 @@ def rag_response():
     for chunk in chunks:
         if chunk.metadata["id"] not in existing_ids:
             new_chunks.append(chunk)
+
+    if len(new_chunks):
+        db_message = f"Added new documents: {len(new_chunks)}"
+        new_chunk_ids = [chunk.metadata["id"] for chunk in new_chunks]
+        db.add_documents(new_chunks, ids=new_chunk_ids)
+        db.persist()
+    else:
+        db_message = "No new documents to add"
     
     return make_response(jsonify({
         "response": "this is a test",
-        "db-message": f"Number of existing documents in DB: {len(existing_ids)}"
+        "db-message": db_message
     }), 200)
