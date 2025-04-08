@@ -88,10 +88,13 @@ def rag_response():
     #take note of all existing ids in the db
     existing_ids = set(existing_items["ids"])
 
-    
+    #save new chunks
     new_chunks = []
+    #loop through existing chunks
     for chunk in chunks:
+        #check to see if chunk id does not already exist
         if chunk.metadata["id"] not in existing_ids:
+            #add the chunk to the new chunks
             new_chunks.append(chunk)
 
     if len(new_chunks):
