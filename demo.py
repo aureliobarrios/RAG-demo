@@ -97,12 +97,17 @@ def rag_response():
             #add the chunk to the new chunks
             new_chunks.append(chunk)
 
+    #check to see if we have chunks
     if len(new_chunks):
+        #save database message
         db_message = f"Added new documents: {len(new_chunks)}"
+        #gather the new chunk ids
         new_chunk_ids = [chunk.metadata["id"] for chunk in new_chunks]
+        #add the chunks with ids to database
         db.add_documents(new_chunks, ids=new_chunk_ids)
         db.persist()
     else:
+        #save database message
         db_message = "No new documents to add"
     
     return make_response(jsonify({
