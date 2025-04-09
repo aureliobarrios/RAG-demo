@@ -111,6 +111,7 @@ def rag_response():
         db_message = "No new documents to add"
 
 
+    #build a prompt template that will be used for the LLM model
     PROMPT_TEMPLATE = """
     Answer the question based only on the following context:
 
@@ -121,13 +122,13 @@ def rag_response():
     Answer the question based on the above context: {question}
     """
     
-
+    #perform a database similary search to the prompt
     results = db.similarity_search_with_score(prompt, k=5)
-
+    #gather all the text that will be used as context
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
-
+    #build a prompt template that will be used for the LLM
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
-
+    #format the template with user input and context
     prompt = prompt_template.format(context=context_text, question=prompt)
 
 
