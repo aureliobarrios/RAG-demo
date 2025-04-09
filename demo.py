@@ -121,6 +121,10 @@ def rag_response():
     Answer the question based on the above context: {question}
     """
     
+
+    results = db.similarity_search_with_score(prompt, k=5)
+
+    context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     
     return make_response(jsonify({
         "response": "this is a test",
