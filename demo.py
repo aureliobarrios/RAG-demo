@@ -125,6 +125,12 @@ def rag_response():
     results = db.similarity_search_with_score(prompt, k=5)
 
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
+
+    prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
+
+    prompt = prompt_template.format(context=context_text, question=prompt)
+
+
     
     return make_response(jsonify({
         "response": "this is a test",
