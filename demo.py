@@ -132,6 +132,12 @@ def rag_response():
     prompt = prompt_template.format(context=context_text, question=prompt)
 
 
+    client = Groq(
+        api_key=GROQ_API_KEY,
+    )
+
+    response_text = groq_invoke(prompt)
+
     
     return make_response(jsonify({
         "response": "this is a test",
