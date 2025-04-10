@@ -131,11 +131,11 @@ def rag_response():
     #format the template with user input and context
     prompt = prompt_template.format(context=context_text, question=prompt)
 
-
+    #build the groq client
     client = Groq(
         api_key=GROQ_API_KEY,
     )
-
+    #input user prompt to grqo and get a chat completion
     chat_completion = client.chat.completions.create(
         messages = [
             {
@@ -145,7 +145,7 @@ def rag_response():
         ],
         model = "llama3-8b-8192"
     )
-
+    #get the response text from the invoked model
     response_text = chat_completion.choices[0].message.content
 
     
