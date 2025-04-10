@@ -146,7 +146,7 @@ def rag_response():
         model = "llama3-8b-8192"
     )
 
-    response_text = groq_invoke(prompt)
+    response_text = chat_completion.choices[0].message.content
 
     
     return make_response(jsonify({
