@@ -136,6 +136,16 @@ def rag_response():
         api_key=GROQ_API_KEY,
     )
 
+    chat_completion = client.chat.completions.create(
+        messages = [
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        model = "llama3-8b-8192"
+    )
+
     response_text = groq_invoke(prompt)
 
     
