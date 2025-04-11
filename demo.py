@@ -148,6 +148,9 @@ def rag_response():
     #get the response text from the invoked model
     response_text = chat_completion.choices[0].message.content
 
+    sources = [doc.metadata.get("id", None) for doc, _score in results]
+
+    formatted_response = f"Response: {response_text}\nSource: {sources}"
     
     return make_response(jsonify({
         "response": "this is a test",
