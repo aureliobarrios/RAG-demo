@@ -154,5 +154,6 @@ def rag_response():
     
     return make_response(jsonify({
         "response": "this is a test",
-        "db-message": db_message
+        "db-message": db_message,
+        "rag-response": formatted_response
     }), 200)
